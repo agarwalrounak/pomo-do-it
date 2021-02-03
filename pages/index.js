@@ -2,22 +2,69 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+    let timer;
+
+    function startTimer() {
+        if(timer != null) {
+            clearInterval(timer);
+            timer = null;
+        }
+
+        var timeLeft = 1500;
+
+        timer = setInterval(setTime, 1000);
+
+        function setTime() {
+            var minutes = Math.floor(timeLeft / 60);
+            var seconds = Math.floor(timeLeft % 60);
+
+            if(getLength(minutes) == 1) {
+                minutes = "0" + minutes;
+            }
+
+            if(getLength(seconds) == 1) {
+                seconds = "0" + seconds;
+            }
+
+            document.getElementById("timer").innerHTML = minutes + ":" + seconds;
+
+            timeLeft--;
+
+            if(timeLeft < 0) {
+                clearInterval(timer);
+                document.getElementById("timer").innerHTML = "Done";
+            }
+        }
+    }
+
+    function getLength(number) {
+        return number.toString().length;
+    }
+
     return (
         <div className={styles.container}>
             <Head>
-                <title>Create Next App</title>
+                <title>Pomo-do-it</title>
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
             <main className={styles.main}>
                 <h1 className={styles.title}>
-                    Welcome to <a href="https://nextjs.org">Next.js!</a>
+                    Welcome to <a href="#">Pomo-do-it!</a>
                 </h1>
 
                 <p className={styles.description}>
                     Get started by editing{' '}
                     <code className={styles.code}>pages/index.js</code>
                 </p>
+
+                <div>
+                    <p id="timer">25:00</p>
+                    {/*<Link href="#">*/}
+                    {/*    <a onClick={startTimer}>Start</a>*/}
+                    {/*</Link>*/}
+                    <button onClick={startTimer}>Start</button>
+                </div>
 
                 <div className={styles.grid}>
                     <a href="https://nextjs.org/docs" className={styles.card}>
