@@ -4,6 +4,8 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
     var timer;
     var isPaused = false;
+    var timeLeft = 1499;
+    var currentRun = "pomodoro";
 
     function buttonFunction() {
         if(document.getElementById("timerButton").innerHTML == "Start") {
@@ -12,20 +14,6 @@ export default function Home() {
         else {
             stopTimer();
         }
-    }
-
-    function resetTimer() {
-        document.getElementById("timerButton").innerHTML = "Start";
-        document.getElementById("timer").innerHTML = "25:00";
-        clearInterval(timer);
-        timer = null;
-        isPaused = false;
-        document.getElementById("resetButton").remove();
-    }
-
-    function stopTimer() {
-        document.getElementById("timerButton").innerHTML = "Start";
-        isPaused = true;
     }
 
     function startTimer() {
@@ -40,8 +28,6 @@ export default function Home() {
             element.innerHTML = "Reset";
             element.id = "resetButton";
             document.getElementById("buttonDiv").appendChild(element);
-
-            var timeLeft = 1499;
 
             timer = setInterval(setTime, 1000);
 
@@ -76,6 +62,60 @@ export default function Home() {
         return number.toString().length;
     }
 
+    function stopTimer() {
+        document.getElementById("timerButton").innerHTML = "Start";
+        isPaused = true;
+    }
+
+    function resetTimer() {
+        var element = document.getElementById("timer");
+        if(currentRun == "pomodoro") {
+            element.innerHTML = "25:00";
+            timeLeft = 1499;
+        }
+        else if(currentRun == "shortBreak") {
+            element.innerHTML = "05:00";
+            timeLeft = 299;
+        }
+        else if(currentRun == "longBreak") {
+            element.innerHTML = "10:00";
+            timeLeft = 599;
+        }
+        resetToInitial();
+    }
+
+    function resetToInitial(){
+        clearInterval(timer);
+        timer = null;
+        isPaused = false;
+        document.getElementById("timerButton").innerHTML = "Start";
+        var element = document.getElementById("resetButton");
+        if(element != null) {
+            element.remove();
+        }
+    }
+
+    function switchToPomodoro() {
+        document.getElementById("timer").innerHTML = "25:00";
+        timeLeft = 1499;
+        currentRun = "pomodoro";
+        resetToInitial();
+    }
+
+    function switchToShortBreak() {
+        document.getElementById("timer").innerHTML = "05:00";
+        timeLeft = 299;
+        currentRun = "shortBreak";
+        resetToInitial();
+    }
+
+    function switchToLongBreak() {
+        document.getElementById("timer").innerHTML = "10:00";
+        timeLeft = 599;
+        currentRun = "longBreak";
+        resetToInitial();
+    }
+
     return (
         <div className={styles.container}>
             <Head>
@@ -94,6 +134,11 @@ export default function Home() {
                 </p>
 
                 <div>
+                    <div>
+                        <button id="pomodoroButton" onClick={switchToPomodoro}>Pomodoro</button>
+                        <button id="sbrButton" onClick={switchToShortBreak}>Short Break</button>
+                        <button id="lbrButton" onClick={switchToLongBreak}>Long Break</button>
+                    </div>
                     <p id="timer">25:00</p>
                     {/*<Link href="#">*/}
                     {/*    <a onClick={startTimer}>Start</a>*/}
