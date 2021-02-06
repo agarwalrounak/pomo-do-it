@@ -14,13 +14,14 @@ export default function Home() {
         }
     }
 
-    // function resetTimer() {
-    //     var elem = document.getElementById("timerButton");
-    //     elem.innerHTML = "Start";
-    //     console.log(timer);
-    //     clearInterval(timer);
-    //     timer = null;
-    // }
+    function resetTimer() {
+        document.getElementById("timerButton").innerHTML = "Start";
+        document.getElementById("timer").innerHTML = "25:00";
+        clearInterval(timer);
+        timer = null;
+        isPaused = false;
+        document.getElementById("resetButton").remove();
+    }
 
     function stopTimer() {
         document.getElementById("timerButton").innerHTML = "Start";
@@ -34,6 +35,12 @@ export default function Home() {
             isPaused = false;
         }
         else {
+            var element = document.createElement("button");
+            element.onclick = resetTimer;
+            element.innerHTML = "Reset";
+            element.id = "resetButton";
+            document.getElementById("buttonDiv").appendChild(element);
+
             var timeLeft = 1499;
 
             timer = setInterval(setTime, 1000);
@@ -91,7 +98,9 @@ export default function Home() {
                     {/*<Link href="#">*/}
                     {/*    <a onClick={startTimer}>Start</a>*/}
                     {/*</Link>*/}
-                    <button id="timerButton" onClick={buttonFunction}>Start</button>
+                    <div id="buttonDiv">
+                        <button id="timerButton" onClick={buttonFunction}>Start</button>
+                    </div>
                 </div>
 
                 <div className={styles.grid}>
