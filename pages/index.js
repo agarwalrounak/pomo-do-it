@@ -2,37 +2,65 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
-    let timer;
+    var timer;
+    var isPaused = false;
+
+    function buttonFunction() {
+        if(document.getElementById("timerButton").innerHTML == "Start") {
+            startTimer();
+        }
+        else {
+            stopTimer();
+        }
+    }
+
+    // function resetTimer() {
+    //     var elem = document.getElementById("timerButton");
+    //     elem.innerHTML = "Start";
+    //     console.log(timer);
+    //     clearInterval(timer);
+    //     timer = null;
+    // }
+
+    function stopTimer() {
+        document.getElementById("timerButton").innerHTML = "Start";
+        isPaused = true;
+    }
 
     function startTimer() {
-        if(timer != null) {
-            clearInterval(timer);
-            timer = null;
+        document.getElementById("timerButton").innerHTML = "Stop";
+
+        if(timer) {
+            isPaused = false;
         }
+        else {
+            var timeLeft = 1499;
 
-        var timeLeft = 1500;
+            timer = setInterval(setTime, 1000);
 
-        timer = setInterval(setTime, 1000);
+            function setTime() {
+                if(!isPaused) {
+                    var minutes = Math.floor(timeLeft / 60);
+                    var seconds = Math.floor(timeLeft % 60);
 
-        function setTime() {
-            var minutes = Math.floor(timeLeft / 60);
-            var seconds = Math.floor(timeLeft % 60);
+                    if(getLength(minutes) == 1) {
+                        minutes = "0" + minutes;
+                    }
 
-            if(getLength(minutes) == 1) {
-                minutes = "0" + minutes;
-            }
+                    if(getLength(seconds) == 1) {
+                        seconds = "0" + seconds;
+                    }
 
-            if(getLength(seconds) == 1) {
-                seconds = "0" + seconds;
-            }
+                    document.getElementById("timer").innerHTML = minutes + ":" + seconds;
 
-            document.getElementById("timer").innerHTML = minutes + ":" + seconds;
+                    timeLeft--;
 
-            timeLeft--;
-
-            if(timeLeft < 0) {
-                clearInterval(timer);
-                document.getElementById("timer").innerHTML = "Done";
+                    if(timeLeft < 0) {
+                        clearInterval(timer);
+                        timer = null;
+                        document.getElementById("timer").innerHTML = "Done";
+                    }
+                }
             }
         }
     }
@@ -63,7 +91,7 @@ export default function Home() {
                     {/*<Link href="#">*/}
                     {/*    <a onClick={startTimer}>Start</a>*/}
                     {/*</Link>*/}
-                    <button onClick={startTimer}>Start</button>
+                    <button id="timerButton" onClick={buttonFunction}>Start</button>
                 </div>
 
                 <div className={styles.grid}>
