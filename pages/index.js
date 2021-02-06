@@ -49,9 +49,7 @@ export default function Home() {
                     timeLeft--;
 
                     if(timeLeft < 0) {
-                        clearInterval(timer);
-                        timer = null;
-                        document.getElementById("timer").innerHTML = "Done";
+                        resetTimer();
                     }
                 }
             }
