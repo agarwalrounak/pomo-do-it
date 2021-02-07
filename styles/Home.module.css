@@ -37,6 +37,16 @@
     width:100%;
 }
 
+.learnPomodoro {
+    font-size: large;
+}
+
+.learnPomodoro a:hover,
+.learnPomodoro a:focus,
+.learnPomodoro a:active {
+    text-decoration: underline;
+}
+
 .footer {
     width: 100%;
     text-align: center;

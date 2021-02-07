@@ -174,6 +174,9 @@ export default function Home() {
                         <button id="timerButton" className={styles.switchButton + ' ' + styles.startButton} onClick={buttonFunction}>START</button>
                     </div>
                 </div>
+                <div className={styles.learnPomodoro}>
+                    <p><a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Learn more about Pomodoro <img src="/external-link.png" alt="external-link icon" className={styles.logo}/></a></p>
+                </div>
             </main>
 
             <hr className={styles.hr}/>
