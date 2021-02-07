@@ -19,17 +19,21 @@ export default function Home() {
     function startTimer() {
         window.addEventListener('beforeunload', unloadEventFunction);
 
-        document.getElementById("timerButton").innerHTML = "STOP";
+        var element = document.getElementById("timerButton");
+        element.innerHTML = "STOP";
+        element.classList.remove(styles.startButton);
+        element.className += " " + styles.stopButton;
 
         if(timer) {
             isPaused = false;
         }
         else {
-            var element = document.createElement("button");
+            element = document.createElement("button");
             element.onclick = resetTimer;
             element.innerHTML = "RESET";
             element.id = "resetButton";
             element.className = styles.switchButton;
+            element.className += " " + styles.resetButton;
             document.getElementById("buttonDiv").appendChild(element);
 
             timer = setInterval(setTime, 1000);
@@ -64,7 +68,10 @@ export default function Home() {
     }
 
     function stopTimer() {
-        document.getElementById("timerButton").innerHTML = "START";
+        var element = document.getElementById("timerButton");
+        element.innerHTML = "START";
+        element.classList.remove(styles.stopButton);
+        element.className += " " + styles.startButton;
         isPaused = true;
     }
 
@@ -97,8 +104,11 @@ export default function Home() {
         timer = null;
         isPaused = false;
         window.removeEventListener('beforeunload', unloadEventFunction);
-        document.getElementById("timerButton").innerHTML = "START";
-        var element = document.getElementById("resetButton");
+        var element = document.getElementById("timerButton");
+        element.innerHTML = "START";
+        element.classList.remove(styles.stopButton);
+        element.className += " " + styles.startButton;
+        element = document.getElementById("resetButton");
         if(element != null) {
             element.remove();
         }
@@ -106,6 +116,9 @@ export default function Home() {
 
     function switchToPomodoro() {
         document.getElementById("timer").innerHTML = "25:00";
+        document.getElementById("lbrButton").classList.remove(styles.switchButtonActive);
+        document.getElementById("sbrButton").classList.remove(styles.switchButtonActive);
+        document.getElementById("pomodoroButton").className += " " + styles.switchButtonActive;
         timeLeft = 1499;
         currentRun = "pomodoro";
         resetToInitial();
@@ -113,6 +126,9 @@ export default function Home() {
 
     function switchToShortBreak() {
         document.getElementById("timer").innerHTML = "05:00";
+        document.getElementById("lbrButton").classList.remove(styles.switchButtonActive);
+        document.getElementById("pomodoroButton").classList.remove(styles.switchButtonActive);
+        document.getElementById("sbrButton").className += " " + styles.switchButtonActive;
         timeLeft = 299;
         currentRun = "shortBreak";
         resetToInitial();
@@ -120,6 +136,9 @@ export default function Home() {
 
     function switchToLongBreak() {
         document.getElementById("timer").innerHTML = "10:00";
+        document.getElementById("sbrButton").classList.remove(styles.switchButtonActive);
+        document.getElementById("pomodoroButton").classList.remove(styles.switchButtonActive);
+        document.getElementById("lbrButton").className += " " + styles.switchButtonActive;
         timeLeft = 599;
         currentRun = "longBreak";
         resetToInitial();
@@ -129,7 +148,7 @@ export default function Home() {
         <div className={styles.container}>
             <Head>
                 <title>Pomo-do-it</title>
-                <link rel="icon" href="/favicon.ico"/>
+                <link rel="icon" href="/icon.svg"/>
             </Head>
 
             <div className={styles.header}>
@@ -143,7 +162,7 @@ export default function Home() {
             <main className={styles.main}>
                 <div className={styles.timerGrid}>
                     <div className={styles.switchGrid}>
-                        <button id="pomodoroButton" className={styles.switchButton} onClick={switchToPomodoro}>Pomodoro</button>
+                        <button id="pomodoroButton" className={styles.switchButton + ' ' + styles.switchButtonActive} onClick={switchToPomodoro}>Pomodoro</button>
                         <button id="sbrButton" className={styles.switchButton} onClick={switchToShortBreak}>Short Break</button>
                         <button id="lbrButton" className={styles.switchButton} onClick={switchToLongBreak}>Long Break</button>
                     </div>
@@ -152,7 +171,7 @@ export default function Home() {
                     {/*    <a onClick={startTimer}>Start</a>*/}
                     {/*</Link>*/}
                     <div id="buttonDiv">
-                        <button id="timerButton" className={styles.switchButton} onClick={buttonFunction}>START</button>
+                        <button id="timerButton" className={styles.switchButton + ' ' + styles.startButton} onClick={buttonFunction}>START</button>
                     </div>
                 </div>
             </main>

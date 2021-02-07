@@ -44,7 +44,7 @@
 }
 
 .footer a {
-    color: #0070f3;
+    color: yellow;
     text-decoration: none;
 }
 
@@ -99,8 +99,31 @@
     background: lemonchiffon;
     font-weight: bold;
     border: none;
-    color: tomato;
+    color: coral;
     flex-grow: 1;
+}
+
+.switchButtonActive {
+    background: #fff171;
+}
+
+.startButton {
+    /*background: #436028;*/
+    background: #427b2d;
+}
+
+.stopButton {
+    background: #ca1313;
+    /*background: #c21010;*/
+}
+
+.resetButton {
+    /*background: blueviolet;*/
+    /*background: darkcyan;*/
+    /*background: darkorchid;*/
+    /*background: teal;*/
+    background: steelblue;
+    /*background: slateblue;*/
 }
 
 .switchGrid {
@@ -110,7 +133,7 @@
 }
 
 .time {
-    font-size: 100px;
+    font-size: 125px;
     margin: 24px;
 }
 
