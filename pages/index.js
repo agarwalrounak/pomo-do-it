@@ -17,6 +17,8 @@ export default function Home() {
     }
 
     function startTimer() {
+        window.addEventListener('beforeunload', unloadEventFunction);
+
         document.getElementById("timerButton").innerHTML = "Stop";
 
         if(timer) {
@@ -82,10 +84,18 @@ export default function Home() {
         resetToInitial();
     }
 
+    function unloadEventFunction(event) {
+        // Cancel the event as stated by the standard.
+        event.preventDefault();
+        // Older browsers supported custom message
+        event.returnValue = '';
+    }
+
     function resetToInitial(){
         clearInterval(timer);
         timer = null;
         isPaused = false;
+        window.removeEventListener('beforeunload', unloadEventFunction);
         document.getElementById("timerButton").innerHTML = "Start";
         var element = document.getElementById("resetButton");
         if(element != null) {
