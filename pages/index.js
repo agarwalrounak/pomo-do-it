@@ -8,7 +8,7 @@ export default function Home() {
     var currentRun = "pomodoro";
 
     function buttonFunction() {
-        if(document.getElementById("timerButton").innerHTML == "Start") {
+        if(document.getElementById("timerButton").innerHTML == "START") {
             startTimer();
         }
         else {
@@ -19,7 +19,7 @@ export default function Home() {
     function startTimer() {
         window.addEventListener('beforeunload', unloadEventFunction);
 
-        document.getElementById("timerButton").innerHTML = "Stop";
+        document.getElementById("timerButton").innerHTML = "STOP";
 
         if(timer) {
             isPaused = false;
@@ -27,8 +27,9 @@ export default function Home() {
         else {
             var element = document.createElement("button");
             element.onclick = resetTimer;
-            element.innerHTML = "Reset";
+            element.innerHTML = "RESET";
             element.id = "resetButton";
+            element.className = styles.switchButton;
             document.getElementById("buttonDiv").appendChild(element);
 
             timer = setInterval(setTime, 1000);
@@ -63,7 +64,7 @@ export default function Home() {
     }
 
     function stopTimer() {
-        document.getElementById("timerButton").innerHTML = "Start";
+        document.getElementById("timerButton").innerHTML = "START";
         isPaused = true;
     }
 
@@ -96,7 +97,7 @@ export default function Home() {
         timer = null;
         isPaused = false;
         window.removeEventListener('beforeunload', unloadEventFunction);
-        document.getElementById("timerButton").innerHTML = "Start";
+        document.getElementById("timerButton").innerHTML = "START";
         var element = document.getElementById("resetButton");
         if(element != null) {
             element.remove();
@@ -131,70 +132,50 @@ export default function Home() {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
-            <main className={styles.main}>
-                <h1 className={styles.title}>
-                    Welcome to <a href="#">Pomo-do-it!</a>
-                </h1>
-
-                <p className={styles.description}>
-                    Get started by editing{' '}
-                    <code className={styles.code}>pages/index.js</code>
+            <div className={styles.header}>
+                <p className={styles.headerText}>
+                    Pomo-do-it
                 </p>
+            </div>
 
-                <div>
-                    <div>
-                        <button id="pomodoroButton" onClick={switchToPomodoro}>Pomodoro</button>
-                        <button id="sbrButton" onClick={switchToShortBreak}>Short Break</button>
-                        <button id="lbrButton" onClick={switchToLongBreak}>Long Break</button>
+            <hr className={styles.hr}/>
+
+            <main className={styles.main}>
+                <div className={styles.timerGrid}>
+                    <div className={styles.switchGrid}>
+                        <button id="pomodoroButton" className={styles.switchButton} onClick={switchToPomodoro}>Pomodoro</button>
+                        <button id="sbrButton" className={styles.switchButton} onClick={switchToShortBreak}>Short Break</button>
+                        <button id="lbrButton" className={styles.switchButton} onClick={switchToLongBreak}>Long Break</button>
                     </div>
-                    <p id="timer">25:00</p>
+                    <p id="timer" className={styles.time}>25:00</p>
                     {/*<Link href="#">*/}
                     {/*    <a onClick={startTimer}>Start</a>*/}
                     {/*</Link>*/}
                     <div id="buttonDiv">
-                        <button id="timerButton" onClick={buttonFunction}>Start</button>
+                        <button id="timerButton" className={styles.switchButton} onClick={buttonFunction}>START</button>
                     </div>
-                </div>
-
-                <div className={styles.grid}>
-                    <a href="https://nextjs.org/docs" className={styles.card}>
-                        <h3>Documentation &rarr;</h3>
-                        <p>Find in-depth information about Next.js features and API.</p>
-                    </a>
-
-                    <a href="https://nextjs.org/learn" className={styles.card}>
-                        <h3>Learn &rarr;</h3>
-                        <p>Learn about Next.js in an interactive course with quizzes!</p>
-                    </a>
-
-                    <a
-                        href="https://github.com/vercel/next.js/tree/master/examples"
-                        className={styles.card}
-                    >
-                        <h3>Examples &rarr;</h3>
-                        <p>Discover and deploy boilerplate example Next.js projects.</p>
-                    </a>
-
-                    <a
-                        href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                        className={styles.card}
-                    >
-                        <h3>Deploy &rarr;</h3>
-                        <p>
-                            Instantly deploy your Next.js site to a public URL with Vercel.
-                        </p>
-                    </a>
                 </div>
             </main>
 
+            <hr className={styles.hr}/>
+
             <footer className={styles.footer}>
+                Built with ❤️ and ☕ by{' '}
                 <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+                    href="https://github.com/agarwalrounak"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    Powered by{' '}
-                    <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo}/>
+                    Rounak{' '}
+                </a>
+                |{' '}
+                Powered by{' '}
+                <a
+                    href="https://vercel.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Vercel
                 </a>
             </footer>
         </div>
