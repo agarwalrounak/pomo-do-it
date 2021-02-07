@@ -147,13 +147,13 @@ export default function Home() {
     return (
         <div className={styles.container}>
             <Head>
-                <title>Pomo-do-it</title>
+                <title>Pomo-Do-It: Your Online Pomodoro Timer</title>
                 <link rel="icon" href="/icon.svg"/>
             </Head>
 
             <div className={styles.header}>
                 <p className={styles.headerText}>
-                    Pomo-do-it
+                    Pomo-Do-It
                 </p>
             </div>
 
