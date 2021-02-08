@@ -8,10 +8,9 @@ export default function Home() {
     var currentRun = "pomodoro";
 
     function buttonFunction() {
-        if(document.getElementById("timerButton").innerHTML == "START") {
+        if (document.getElementById("timerButton").innerHTML === "START") {
             startTimer();
-        }
-        else {
+        } else {
             stopTimer();
         }
     }
@@ -24,10 +23,9 @@ export default function Home() {
         element.classList.remove(styles.startButton);
         element.className += " " + styles.stopButton;
 
-        if(timer) {
+        if (timer) {
             isPaused = false;
-        }
-        else {
+        } else {
             element = document.createElement("button");
             element.onclick = resetTimer;
             element.innerHTML = "RESET";
@@ -39,15 +37,15 @@ export default function Home() {
             timer = setInterval(setTime, 1000);
 
             function setTime() {
-                if(!isPaused) {
+                if (!isPaused) {
                     var minutes = Math.floor(timeLeft / 60);
                     var seconds = Math.floor(timeLeft % 60);
 
-                    if(getLength(minutes) == 1) {
+                    if (getLength(minutes) === 1) {
                         minutes = "0" + minutes;
                     }
 
-                    if(getLength(seconds) == 1) {
+                    if (getLength(seconds) === 1) {
                         seconds = "0" + seconds;
                     }
 
@@ -55,7 +53,7 @@ export default function Home() {
 
                     timeLeft--;
 
-                    if(timeLeft < 0) {
+                    if (timeLeft < 0) {
                         resetTimer();
                     }
                 }
@@ -68,7 +66,7 @@ export default function Home() {
     }
 
     function stopTimer() {
-        var element = document.getElementById("timerButton");
+        let element = document.getElementById("timerButton");
         element.innerHTML = "START";
         element.classList.remove(styles.stopButton);
         element.className += " " + styles.startButton;
@@ -76,16 +74,14 @@ export default function Home() {
     }
 
     function resetTimer() {
-        var element = document.getElementById("timer");
-        if(currentRun == "pomodoro") {
+        let element = document.getElementById("timer");
+        if (currentRun === "pomodoro") {
             element.innerHTML = "25:00";
             timeLeft = 1499;
-        }
-        else if(currentRun == "shortBreak") {
+        } else if (currentRun === "shortBreak") {
             element.innerHTML = "05:00";
             timeLeft = 299;
-        }
-        else if(currentRun == "longBreak") {
+        } else if (currentRun === "longBreak") {
             element.innerHTML = "10:00";
             timeLeft = 599;
         }
@@ -93,23 +89,21 @@ export default function Home() {
     }
 
     function unloadEventFunction(event) {
-        // Cancel the event as stated by the standard.
         event.preventDefault();
-        // Older browsers supported custom message
         event.returnValue = '';
     }
 
-    function resetToInitial(){
+    function resetToInitial() {
         clearInterval(timer);
         timer = null;
         isPaused = false;
         window.removeEventListener('beforeunload', unloadEventFunction);
-        var element = document.getElementById("timerButton");
+        let element = document.getElementById("timerButton");
         element.innerHTML = "START";
         element.classList.remove(styles.stopButton);
         element.className += " " + styles.startButton;
         element = document.getElementById("resetButton");
-        if(element != null) {
+        if (element != null) {
             element.remove();
         }
     }
@@ -162,20 +156,40 @@ export default function Home() {
             <main className={styles.main}>
                 <div className={styles.timerGrid}>
                     <div className={styles.switchGrid}>
-                        <button id="pomodoroButton" className={styles.switchButton + ' ' + styles.switchButtonActive} onClick={switchToPomodoro}>Pomodoro</button>
-                        <button id="sbrButton" className={styles.switchButton} onClick={switchToShortBreak}>Short Break</button>
-                        <button id="lbrButton" className={styles.switchButton} onClick={switchToLongBreak}>Long Break</button>
+                        <button
+                            id="pomodoroButton" className={styles.switchButton + ' ' + styles.switchButtonActive}
+                            onClick={switchToPomodoro}>
+                            Pomodoro
+                        </button>
+                        <button
+                            id="sbrButton" className={styles.switchButton}
+                            onClick={switchToShortBreak}
+                        >
+                            Short Break
+                        </button>
+                        <button
+                            id="lbrButton" className={styles.switchButton}
+                            onClick={switchToLongBreak}
+                        >
+                            Long Break
+                        </button>
                     </div>
                     <p id="timer" className={styles.time}>25:00</p>
-                    {/*<Link href="#">*/}
-                    {/*    <a onClick={startTimer}>Start</a>*/}
-                    {/*</Link>*/}
                     <div id="buttonDiv">
-                        <button id="timerButton" className={styles.switchButton + ' ' + styles.startButton} onClick={buttonFunction}>START</button>
+                        <button
+                            id="timerButton" className={styles.switchButton + ' ' + styles.startButton}
+                            onClick={buttonFunction}
+                        >
+                            START
+                        </button>
                     </div>
                 </div>
                 <div className={styles.learnPomodoro}>
-                    <p><a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">Learn more about Pomodoro <img src="/external-link.png" alt="external-link icon" className={styles.logo}/></a></p>
+                    <p>
+                        <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">
+                            Learn more about Pomodoro <img src="/external-link.png" alt="external-link icon" className={styles.logo}/>
+                        </a>
+                    </p>
                 </div>
             </main>
 

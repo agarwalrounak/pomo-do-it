@@ -14,7 +14,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin:auto;
+    margin: auto;
     max-width: 100%;
 }
 
@@ -34,7 +34,7 @@
     border: 0;
     border-top: 2px solid #862c00;
     padding: 0;
-    width:100%;
+    width: 100%;
 }
 
 .learnPomodoro {
