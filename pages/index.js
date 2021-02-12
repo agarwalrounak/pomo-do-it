@@ -11,7 +11,7 @@ export default function Home() {
         if (document.getElementById("timerButton").innerHTML === "START") {
             startTimer();
         } else {
-            stopTimer();
+            pauseTimer();
         }
     }
 
@@ -19,9 +19,9 @@ export default function Home() {
         window.addEventListener('beforeunload', unloadEventFunction);
 
         var element = document.getElementById("timerButton");
-        element.innerHTML = "STOP";
+        element.innerHTML = "PAUSE";
         element.classList.remove(styles.startButton);
-        element.className += " " + styles.stopButton;
+        element.className += " " + styles.pauseButton;
 
         if (timer) {
             isPaused = false;
@@ -65,10 +65,10 @@ export default function Home() {
         return number.toString().length;
     }
 
-    function stopTimer() {
+    function pauseTimer() {
         let element = document.getElementById("timerButton");
         element.innerHTML = "START";
-        element.classList.remove(styles.stopButton);
+        element.classList.remove(styles.pauseButton);
         element.className += " " + styles.startButton;
         isPaused = true;
     }
@@ -100,7 +100,7 @@ export default function Home() {
         window.removeEventListener('beforeunload', unloadEventFunction);
         let element = document.getElementById("timerButton");
         element.innerHTML = "START";
-        element.classList.remove(styles.stopButton);
+        element.classList.remove(styles.pauseButton);
         element.className += " " + styles.startButton;
         element = document.getElementById("resetButton");
         if (element != null) {
