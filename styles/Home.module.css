@@ -117,15 +117,15 @@
 
 .startButton {
     /*background: #436028;*/
-    background: #427b2d;
+    background: darkslateblue;
 }
 
 .pauseButton {
-    background: #ca1313;
+    background: darkslateblue;
 }
 
 .resetButton {
-    background: steelblue;
+    background: darkslateblue;
 }
 
 .switchGrid {
