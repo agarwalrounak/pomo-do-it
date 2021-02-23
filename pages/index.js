@@ -186,7 +186,11 @@ export default function Home() {
                 </div>
                 <div className={styles.learnPomodoro}>
                     <p>
-                        <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique">
+                        <a
+                            href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             Learn more about Pomodoro <img src="/external-link.png" alt="external-link icon" className={styles.logo}/>
                         </a>
                     </p>
